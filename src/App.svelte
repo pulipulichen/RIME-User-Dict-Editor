@@ -1,11 +1,18 @@
 <script>
-	export let name;
+	import { count } from './stores.js';
+	import Incrementer from './Incrementer.svelte';
+	import Decrementer from './Decrementer.svelte';
+	import Resetter from './Resetter.svelte';
+
+	let count_value;
+
+	const unsubscribe = count.subscribe(value => {
+		count_value = value;
+	});
 </script>
 
-<style>
-	h1 {
-		color: green;
-	}
-</style>
+<h1>The count is {count_value}</h1>
 
-<h1>Hello {name}!</h1>
+<Incrementer/>
+<Decrementer/>
+<Resetter/>
