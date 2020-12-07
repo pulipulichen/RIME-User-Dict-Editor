@@ -30,12 +30,19 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="(dict, i) in $parent.dicts">
+                  <tr v-for="(dict, i) in $parent.dicts"
+                      v-bind:class="{negative: !$parent.validateDict(dict)}">
                     <td>
-                      <input type="text" name="dict_key" v-model="dict.term" />
+                      <input type="text" 
+                             name="dict_key" 
+                             v-model="dict.term"
+                             v-on:change="queryMoeDict(dict.term, i)" />
                     </td>
                     <td>
-                      <input type="text" name="dict_value" v-model="dict.pinyin" />
+                      <input type="text" 
+                             name="dict_value" 
+                             v-model="dict.pinyin"
+                             v-bind:data-dict-index="i" />
                     </td>
                     <td>
                       <button type="button" class="add-button tiny ui icon button"
@@ -55,7 +62,7 @@
               <button type="button"  
                       class="fluid ui large right labeled icon button download-file" 
                       id="save_button"
-                      v-bind:class="{'positive': $parent.isModified}"
+                      v-bind:class="{'positive': $parent.isModified, 'disabled': !$parent.isModified}"
                       v-on:click="$parent.save">
                 <i class="right save icon"></i>
                 儲存
@@ -76,7 +83,12 @@
           <h2 class="ui horizontal divider header">
             萌典
           </h2>
-          <div id="moe_dicts"></div>
+          <div id="moe_dicts">
+            <iframe v-for="q in query"
+                    v-bind:src="queryMoeURL(q)" 
+                    class="query-moe-iframe"
+                    v-on:load="focusPinyin"></iframe>
+          </div>
         </div>
       </div> <!-- <div class="column"> -->
     </div> <!-- <div class="ui two column doubling grid"> -->
@@ -88,6 +100,13 @@
 
 <script>
 module.exports = {
+  data () {
+    return {
+      query: [],
+      queryIndex: -1,
+      focusTimer: null,
+    }
+  },
   methods: {
     addTerm (i) {
       this.$parent.dicts.splice(i, 0, {
@@ -106,6 +125,32 @@ module.exports = {
       if (forceRemove || window.confirm(`確定刪除${term}？`)) {
         this.$parent.dicts.splice(i, 1)
       }
+    },
+    queryMoeDict (term, i) {
+      term = term.trim()
+      if (term === '') {
+        return false
+      }
+      
+      this.query = []
+      term.trim().split('').forEach(char => {
+        if (char === '') {
+          return false
+        }
+        this.query.push(char)
+      })
+      this.queryIndex = i
+    },
+    queryMoeURL (q) {
+      return "https://www.moedict.tw/" + q
+    },
+    focusPinyin () {
+      clearTimeout(this.focusTimer)
+      this.focusTimer = setTimeout(() => {
+        $(this.$el).find(`[data-dict-index="${this.queryIndex}"]`).focus()
+        console.log(this.queryIndex, `[data-dict-index="${this.queryIndex}"]`, $(this.$el).find(`[data-dict-index="${this.queryIndex}"]`).length)
+      }, 300)
+      
     }
   }
 }

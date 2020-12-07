@@ -4,12 +4,28 @@ electron = require('electron');
 ipcRenderer = electron.ipcRenderer;
 
 var appMethods = {
+  validateDict ({term, pinyin}) {
+    
+    term = term.trim()
+    pinyin = pinyin.trim()
+    
+    if (term === '' || pinyin === '') {
+      return false
+    }
+    
+    //if (term.length !== pinyin.split(' ').length) {
+    //  console.log(term, pinyin, term.length, pinyin.split(' ').length)
+    //}
+    return term.length === pinyin.split(' ').length
+  },
   load () {
     let callbackID = "load_dict_file_" + (new Date()).getTime();
     ipcRenderer.on(callbackID, (event, content) => {
       //this.dictRaw = content
       this.dicts = this.parseDictRaw(content)
+      //this.dicts = [{term: '', pinyin: ''}].concat(this.parseDictRaw(content))
       this.dictsBeforeSave = [].concat(this.dicts)
+      this.dicts = [{term: '', pinyin: ''}].concat(this.dicts)
     });
     ipcRenderer.send('load_dict_file', callbackID);
   },
@@ -35,9 +51,20 @@ var appMethods = {
       }
       
       let parts = line.split('\t')
+      let term = parts[0].trim()
+      let pinyin = [] 
+      parts[1].trim().split(' ').forEach(yin => {
+        yin = yin.trim()
+        if (yin === '') {
+          return false
+        }
+        pinyin.push(yin)
+      })
+      pinyin = pinyin.join(' ')
+      
       dicts.push({
-        term: parts[0],
-        pinyin: parts[1],
+        term,
+        pinyin
       })
     })
     

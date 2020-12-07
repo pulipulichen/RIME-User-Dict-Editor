@@ -32,8 +32,8 @@ var appComputed = {
     return dicts
   },
   isModified () {
-    console.log(JSON.stringify(this.dictsCleared))
-    console.log(JSON.stringify(this.dictsBeforeSave))
+    //console.log(JSON.stringify(this.dictsCleared))
+    //console.log(JSON.stringify(this.dictsBeforeSave))
     return (JSON.stringify(this.dictsCleared) !== JSON.stringify(this.dictsBeforeSave))
   },
   dictsCleared () {
@@ -46,7 +46,7 @@ var appComputed = {
       
       dicts.push({term, pinyin})
     })
-    console.log(dicts)
+    //console.log(dicts)
     return dicts
   },
   dictToSave () {
