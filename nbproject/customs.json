@@ -1,6 +1,10 @@
 {
-  "elements": {},
+  "elements": {
+    "editor-form": {}
+  },
   "attributes": {
-    "v-on:click": {}
+    "v-on:click": {},
+    "v-for": {},
+    "v-model": {}
   }
 }

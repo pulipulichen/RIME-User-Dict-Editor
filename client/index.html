@@ -49,12 +49,19 @@
   <body>
     
     <div id="app">
+      <editor-form></editor-form>
+      <!--
       <button type="button"
               class="ui button primary"
               v-on:click="save">
                 save_dict_file
       </button>
-      {{ dictRaw }}
+      
+      <div v-for="dict in dicts">
+        {{ dict.term }}
+        {{ dict.pinyin }}
+      </div>
+      -->
     </div>
     
     <!-- =============================== -->

@@ -4,5 +4,5 @@
 
 var appComponents = {
   //'template': httpVueLoader('./components/template.vue'),
-  
+  'editor-form': httpVueLoader('./components/editor-form.vue'),
 }

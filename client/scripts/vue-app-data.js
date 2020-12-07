@@ -1,3 +1,5 @@
 var appData = {
-  dictRaw: ''
+  dictRaw: '',
+  dicts: [],
+  dictsBeforeSave: [],
 }

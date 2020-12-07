@@ -24,9 +24,10 @@ module.exports = {
       });
     });
 
-    ipcMain.on('save_dict_file', (event, _content) => {
+    ipcMain.on('save_dict_file', (event, _content, _callback_id) => {
       let _file = config.dict_path
       fs.writeFileSync(_file, _content, 'UTF8');
+      event.sender.send(_callback_id);
     });
   }
 };
