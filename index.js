@@ -36,6 +36,8 @@ function createWindow() {
     })
     
     win.removeMenu()
+    
+    win.maximize()
 
     win.loadURL(url.format({
         pathname: path.join(__dirname, './client/index.html'),
@@ -44,7 +46,7 @@ function createWindow() {
     }))
 
     // Open DevTools.
-    win.webContents.openDevTools()
+    //win.webContents.openDevTools()
 
     // When Window Close.
     win.on('closed', () => {

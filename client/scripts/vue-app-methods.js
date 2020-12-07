@@ -26,6 +26,8 @@ var appMethods = {
       //this.dicts = [{term: '', pinyin: ''}].concat(this.parseDictRaw(content))
       this.dictsBeforeSave = [].concat(this.dicts)
       this.dicts = [{term: '', pinyin: ''}].concat(this.dicts)
+      
+      $('body').removeClass('loading')
     });
     ipcRenderer.send('load_dict_file', callbackID);
   },

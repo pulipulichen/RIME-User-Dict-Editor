@@ -4,11 +4,12 @@ const {app, BrowserWindow, dialog, Menu, Tray, globalShortcut, ipcMain, session,
 let fs = require('fs');
 var path = require('path');
 let config = require('../config.js')
+const { exec } = require("child_process");
 
 module.exports = {
   setup: function () {
     ipcMain.on('load_dict_file', (event, _callback_id) => {
-      let _file = config.dict_path
+      let _file = config.dictPath
       //var _file_name = __dirname + "/cache/local_storage_" + _key + ".json";
       fs.exists(_file, function (_is_exists) {
         if (_is_exists === true) {
@@ -25,9 +26,26 @@ module.exports = {
     });
 
     ipcMain.on('save_dict_file', (event, _content, _callback_id) => {
-      let _file = config.dict_path
+      let _file = config.dictPath
       fs.writeFileSync(_file, _content, 'UTF8');
-      event.sender.send(_callback_id);
+      
+      if (config.backupDictPath) {
+        fs.writeFileSync(config.backupDictPath, _content, 'UTF8');
+      }
+      
+      // 這邊還要執行命令
+      exec(config.deployCommand, (error, stdout, stderr) => {
+        if (error) {
+          console.log(`error: ${error.message}`);
+          return;
+        }
+        if (stderr) {
+          console.log(`stderr: ${stderr}`);
+          return;
+        }
+        //console.log(`stdout: ${stdout}`);
+        event.sender.send(_callback_id);
+      });
     });
   }
 };
