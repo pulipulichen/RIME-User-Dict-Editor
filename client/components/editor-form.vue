@@ -103,9 +103,25 @@ module.exports = {
   data () {
     return {
       query: [],
+      lastQueryString: '',
       queryIndex: -1,
       focusTimer: null,
     }
+  },
+  watch: {
+    query () {
+      if (this.lastQueryString === this.query.join('')) {
+        return false
+      }
+      
+      $('body').addClass('loading')
+      this.focusPinyin(1000)
+      this.lastQueryString = this.query.join('')
+    },
+    //queryIndex () {
+      //$('body').addClass('loading')
+      //this.focusPinyin(1000)
+    //}
   },
   methods: {
     addTerm (i) {
@@ -140,18 +156,17 @@ module.exports = {
         this.query.push(char)
       })
       this.queryIndex = i
-      $('body').addClass('loading')
     },
     queryMoeURL (q) {
       return "https://www.moedict.tw/" + q
     },
-    focusPinyin () {
+    focusPinyin (time = 300) {
       clearTimeout(this.focusTimer)
       this.focusTimer = setTimeout(() => {
         $(this.$el).find(`[data-dict-index="${this.queryIndex}"]`).focus()
         $('body').removeClass('loading')
         //console.log(this.queryIndex, `[data-dict-index="${this.queryIndex}"]`, $(this.$el).find(`[data-dict-index="${this.queryIndex}"]`).length)
-      }, 300)
+      }, time)
     }
   }
 }
