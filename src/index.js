@@ -1,3 +1,3 @@
-window.alert('AAAsssssssA')
+//window.alert('AAAsssssssA')
 
 //asaa

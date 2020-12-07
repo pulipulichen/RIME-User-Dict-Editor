@@ -36,7 +36,7 @@ module.exports = (env, argv) => {
       'bundle': './src/index.js',
     },
     output: {
-      path: path.resolve('./public/'),
+      path: path.resolve('./dist/'),
       filename: '[name].min.js'
     },
     module: {
