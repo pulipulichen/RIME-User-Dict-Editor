@@ -29,13 +29,13 @@ function createWindow() {
         //width: 400,
         //height: 400,
         //maximizable: false,
-        icon: path.join(__dirname, './img/icon/favicon.ico')
+        icon: path.join(__dirname, './client/img/icon/favicon.ico')
     })
     
     win.removeMenu()
 
     win.loadURL(url.format({
-        pathname: path.join(__dirname, 'index.html'),
+        pathname: path.join(__dirname, './client/index.html'),
         protocol: 'file:',
         slashes: true
     }))
@@ -49,3 +49,6 @@ function createWindow() {
     })
 
 }
+
+var ipc_main = require('./server/electron-server.js');
+ipc_main.setup();

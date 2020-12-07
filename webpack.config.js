@@ -33,10 +33,10 @@ module.exports = (env, argv) => {
     //devtool: false,
     entry: {
       //'test': './[tmp/test.js',
-      'bundle': './src/index.js',
+      'bundle': './client/src/index.js',
     },
     output: {
-      path: path.resolve('./dist/'),
+      path: path.resolve('./client/dist/'),
       filename: '[name].min.js'
     },
     module: {
