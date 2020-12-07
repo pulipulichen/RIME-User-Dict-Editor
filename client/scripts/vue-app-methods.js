@@ -75,11 +75,12 @@ var appMethods = {
   save () {
     let className = 'loading'
     $('body').addClass(className)
-    console.log(this.dictToSave)
+    //console.log(this.dictToSave)
     let callbackID = "save_dict_file_" + (new Date()).getTime();
     ipcRenderer.on(callbackID, (event, content) => {
+      this.dictsBeforeSave = [].concat(this.dicts)
       $('body').removeClass(className)
     });
-    //ipcRenderer.send('save_dict_file', this.dictToSave, callbackID );
+    ipcRenderer.send('save_dict_file', this.dictToSave, callbackID );
   }
 }

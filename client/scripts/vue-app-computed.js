@@ -46,6 +46,7 @@ var appComputed = {
       
       dicts.push({term, pinyin})
     })
+    
     //console.log(dicts)
     return dicts
   },
@@ -70,7 +71,8 @@ import_tables:
 ####
 `
     let dicts = []
-    this.dicts.forEach(({term, pinyin}) => {
+    let tempDicts = [].concat(this.dicts)
+    tempDicts.reverse().forEach(({term, pinyin}) => {
       if (term.trim() === '' 
               || pinyin.trim() === '') {
         return false
@@ -78,6 +80,11 @@ import_tables:
       
       dicts.push(term + '\t' + pinyin)
     })
+    // 去除完全重複的
+    dicts = dicts.filter((value, index, self) => {
+      return self.indexOf(value) === index
+    });
+    
     dicts = dicts.join('\n')
     //let dicts = this.dicts.map(({term, pinyin}) => term + '\t' + pinyin).join('\n')
     

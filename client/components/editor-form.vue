@@ -140,6 +140,7 @@ module.exports = {
         this.query.push(char)
       })
       this.queryIndex = i
+      $('body').addClass('loading')
     },
     queryMoeURL (q) {
       return "https://www.moedict.tw/" + q
@@ -148,9 +149,9 @@ module.exports = {
       clearTimeout(this.focusTimer)
       this.focusTimer = setTimeout(() => {
         $(this.$el).find(`[data-dict-index="${this.queryIndex}"]`).focus()
-        console.log(this.queryIndex, `[data-dict-index="${this.queryIndex}"]`, $(this.$el).find(`[data-dict-index="${this.queryIndex}"]`).length)
+        $('body').removeClass('loading')
+        //console.log(this.queryIndex, `[data-dict-index="${this.queryIndex}"]`, $(this.$el).find(`[data-dict-index="${this.queryIndex}"]`).length)
       }, 300)
-      
     }
   }
 }
