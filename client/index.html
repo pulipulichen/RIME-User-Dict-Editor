@@ -22,13 +22,51 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="./img/icon/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
-  </head>
-  <body>
-    <div>TODO write caaaaaaaaaqwqwaZZ</div>
-    <button type="button" id="b">SAVE</button>
     
     <!-- =============================== -->
     
-    <script src="dist/bundle.min.js"></script>
+    
+    <script src="./vendors/vue/vue.min.js"></script>
+    <script>
+      jQuery = require('jquery')
+      $ = jQuery
+    </script>
+
+    <script src="./vendors/semantic-ui/semantic.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="./vendors/semantic-ui/semantic.min.css">
+
+    <link rel="stylesheet/less" type="text/css" href="./styles/styles.less" />
+    <script>less = {env: 'production'};</script>
+    <script src="./vendors/less/less.min.js"></script>
+    <script src="./vendors/date-helper.js"></script>
+    <script src="./vendors/hotkeys/hotkeys.min.js"></script>
+
+    <script src="./vendors/vue/httpVueLoader.js"></script>
+    
+    <!-- =============================== -->
+    
+    
+  </head>
+  <body>
+    
+    <div id="app">
+      <button type="button"
+              class="ui button primary"
+              v-on:click="save">
+                save_dict_file
+      </button>
+    </div>
+    
+    <!-- =============================== -->
+    <!-- ================================================ -->
+    
+    <script src="./scripts/vue-app-computed.js"></script>
+    <script src="./scripts/vue-app-data.js"></script>
+    <script src="./scripts/vue-app-methods.js"></script>
+    <script src="./scripts/vue-app-mounted.js"></script>
+    <script src="./scripts/vue-app-watch.js"></script>
+    <script src="./scripts/vue-app-components.js"></script>
+    
+    <script src="./scripts/vue-app.js"></script>
   </body>
 </html>

@@ -10,10 +10,6 @@
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack --watch",
     "dev": "webpack-dev-server --content-base public --hot --inline",
-    "1-webpack-build-development": "webpack --mode development",
-    "2-webpack-watch-development": "webpack --watch --mode development --display errors-only",
-    "3 webpack-watch-build-production": "webpack --watch --mode production --display errors-only",
-    "4 webpack-build-production": "webpack --mode production",
     "start-electron": "electron ."
   },
   "keywords": [
@@ -50,5 +46,7 @@
     "webpack-dev-server": "^3.3.1",
     "webpack-shell-plugin": "^0.5.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "jquery": "^3.5.1"
+  }
 }

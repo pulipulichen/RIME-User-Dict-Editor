@@ -29,7 +29,10 @@ function createWindow() {
         //width: 400,
         //height: 400,
         //maximizable: false,
-        icon: path.join(__dirname, './client/img/icon/favicon.ico')
+        icon: path.join(__dirname, './client/img/icon/favicon.ico'),
+        webPreferences: {
+            nodeIntegration: true
+        }
     })
     
     win.removeMenu()
@@ -41,7 +44,7 @@ function createWindow() {
     }))
 
     // Open DevTools.
-    // win.webContents.openDevTools()
+    win.webContents.openDevTools()
 
     // When Window Close.
     win.on('closed', () => {

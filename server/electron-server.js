@@ -102,12 +102,8 @@ module.exports = {
         
         ipcMain.on('save_dict_file', (event, _content) => {
           let _file = path.resolve('./a.txt')
-          
-          fs.exists(_file, function (_is_exists) {
-              if (_is_exists === true) {
-                  fs.writeFile(_file, _content, 'base64');
-              }
-          });
+          console.log(_file)
+          fs.writeFileSync(_file, _content, 'UTF8');
         });
     }
 };
