@@ -1,3 +1,3 @@
 var appData = {
-  
+  dictRaw: ''
 }
