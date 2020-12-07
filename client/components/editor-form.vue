@@ -2,25 +2,37 @@
 
   <form class="file-process-framework ui form" method="post" action="save.php">
 
-    <div class="ui two column doubling grid">
+    <div class="ui one column grid">
       <div class="column">
         <div class="ui segment">
 
-
-          <h1 class="ui horizontal divider header">
-            小狼毫字典
-          </h1>
-
+          <div class="ui grid">
+            <div class="twelve wide column">
+              <h1 class="ui horizontal divider header">
+                小狼毫字典
+              </h1>
+            </div>
+            <div class="four wide column" style="padding-top: 0.5rem;">
+              <div class="field">
+                <button type="button"  
+                        class="fluid ui large right labeled icon button download-file" 
+                        id="save_button"
+                        v-bind:class="{'positive': $parent.isModified, 'disabled': !$parent.isModified}"
+                        v-on:click="$parent.save">
+                  <i class="right save icon"></i>
+                  儲存
+                </button>
+              </div>
+            </div>
+          </div>
           <!-- --------------------------------- -->
 
           <div class="ui bottom attached active tab segment" data-tab="textarea">
             <div class="instruction">
               <strong>悉</strong>: xi1 一聲 1</strong> / <strong>夾</strong>: jia2 <strong>二聲 2</strong> / <strong>什</strong>: shen3 <strong>三聲 3</strong> /
-              <br /> <strong>砲</strong>: pao4 <strong>四聲 4</strong> / <strong>子</strong>: zi5 <strong>輕聲 5</strong>
+              <strong>砲</strong>: pao4 <strong>四聲 4</strong> / <strong>子</strong>: zi5 <strong>輕聲 5</strong>
             </div>
-            <div class="table-wrapper" style="overflow-y: auto;
-                 max-height: calc(100vh - 230px);
-                 margin-bottom: 1em;">
+            <div class="table-wrapper" style="">
               <table class="ui table">
                 <thead>
                   <tr>
@@ -58,16 +70,6 @@
                 </tbody>
               </table>
             </div>
-            <div class="field">
-              <button type="button"  
-                      class="fluid ui large right labeled icon button download-file" 
-                      id="save_button"
-                      v-bind:class="{'positive': $parent.isModified, 'disabled': !$parent.isModified}"
-                      v-on:click="$parent.save">
-                <i class="right save icon"></i>
-                儲存
-              </button>
-            </div>
           </div>
 
           <!-- --------------------------------- -->
@@ -76,14 +78,15 @@
       </div> <!-- <div class="column"> -->
       <!-- -------------------------------------- -->
 
-      <div class="column">
+      <div class="column" v-if="query.length > 0">
         <div class="ui segment display-result" style="">
           <!-- <div class="display-result"> -->
-
+          <!--
           <h2 class="ui horizontal divider header">
             萌典
           </h2>
-          <div id="moe_dicts">
+          -->
+          <div id="moe_dicts" ref="MoeIframes">
             <iframe v-for="q in query"
                     v-bind:src="queryMoeURL(q)" 
                     class="query-moe-iframe"
@@ -117,6 +120,7 @@ module.exports = {
       $('body').addClass('loading')
       this.focusPinyin(1000)
       this.lastQueryString = this.query.join('')
+      this.$refs.MoeIframes.scrollTop = 0
     },
     //queryIndex () {
       //$('body').addClass('loading')
@@ -138,7 +142,7 @@ module.exports = {
         forceRemove = true
       }
       
-      if (forceRemove || window.confirm(`確定刪除${term}？`)) {
+      if (forceRemove || window.confirm(`確定刪除「${term}」？`)) {
         this.$parent.dicts.splice(i, 1)
       }
     },

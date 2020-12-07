@@ -3,8 +3,10 @@
     "editor-form": {}
   },
   "attributes": {
+    "ref": {},
     "v-on:click": {},
     "v-for": {},
+    "v-on:load": {},
     "v-model": {}
   }
 }
