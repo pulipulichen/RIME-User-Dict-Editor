@@ -82,6 +82,11 @@ var appMethods = {
     ipcRenderer.on(callbackID, (event, content) => {
       this.dictsBeforeSave = [].concat(this.dicts)
       $('body').removeClass(className)
+      
+      this.dicts = [{
+          term: '',
+          pinyin: ''
+      }].concat(this.dicts)
     });
     ipcRenderer.send('save_dict_file', this.dictToSave, callbackID );
   }

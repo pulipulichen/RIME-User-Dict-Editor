@@ -1,13 +1,16 @@
 {
   "elements": {
+    "style": {},
     "editor-form": {}
   },
   "attributes": {
     "ref": {},
     "v-if": {},
     "v-on:click": {},
+    "src": {},
     "v-for": {},
     "v-on:load": {},
+    "lang": {},
     "v-model": {}
   }
 }
