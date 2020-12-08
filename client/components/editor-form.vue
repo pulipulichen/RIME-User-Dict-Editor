@@ -12,7 +12,10 @@
                 小狼毫字典
               </h1>
             </div>
-            <div class="four wide column" style="padding-top: 0.5rem;">
+            <div class="two wide column" style="padding-top: 0.5rem;">
+              <input type="text" placeholder="測試..." />
+            </div>
+            <div class="two wide column" style="padding-top: 0.5rem;">
               <div class="field">
                 <button type="button"  
                         class="fluid ui large right labeled icon button download-file" 
