@@ -47,6 +47,7 @@
     "webpack-shell-plugin": "^0.5.0"
   },
   "dependencies": {
-    "jquery": "^3.5.1"
+    "jquery": "^3.5.1",
+    "slugify": "^1.4.6"
   }
 }

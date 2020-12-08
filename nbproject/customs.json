@@ -11,6 +11,7 @@
     "v-for": {},
     "v-on:load": {},
     "lang": {},
-    "v-model": {}
+    "v-model": {},
+    "v-show": {}
   }
 }

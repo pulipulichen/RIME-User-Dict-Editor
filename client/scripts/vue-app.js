@@ -1,4 +1,5 @@
 /* global appData, appComputed, appWatch, appMethods, appMount, appComponents */
+var slugify = require('slugify')
 
 let app = {
   el: '#app',
