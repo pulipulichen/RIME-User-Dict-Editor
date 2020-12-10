@@ -11,19 +11,20 @@
             </h1>
           </div>
           <div class="two wide column" style="padding-top: 0.5rem;">
-            <input type="text" placeholder="測試..." />
-          </div>
-          <div class="two wide column" style="padding-top: 0.5rem;">
             <div class="field">
               <button type="button"  
-                      class="fluid ui large right labeled icon button download-file" 
+                      class="fluid ui large icon button download-file" 
                       id="save_button"
                       v-bind:class="{'positive': $parent.isModified, 'disabled': !$parent.isModified}"
-                      v-on:click="$parent.save">
-                <i class="right save icon"></i>
+                      v-on:click="save">
                 儲存
               </button>
             </div>
+            
+          </div>
+          <div class="two wide column" style="padding-top: 0.5rem;">
+            <input type="text" placeholder="測試..."
+                   ref="TypeTestInput" />
           </div>
         </div>
         <!-- --------------------------------- -->

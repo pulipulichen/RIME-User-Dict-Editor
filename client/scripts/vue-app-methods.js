@@ -9,6 +9,10 @@ var appMethods = {
     term = term.trim()
     pinyin = pinyin.trim()
     
+    if (term === '' && pinyin === '') {
+      return true
+    }
+    
     if (term === '' || pinyin === '') {
       return false
     }
@@ -75,19 +79,24 @@ var appMethods = {
     return dicts
   },
   save () {
-    let className = 'loading'
-    $('body').addClass(className)
-    //console.log(this.dictToSave)
-    let callbackID = "save_dict_file_" + (new Date()).getTime();
-    ipcRenderer.on(callbackID, (event, content) => {
-      this.dictsBeforeSave = [].concat(this.dicts)
-      $('body').removeClass(className)
+    return new Promise((resolve) => {
+      let className = 'loading'
+      $('body').addClass(className)
+      //console.log(this.dictToSave)
+      let callbackID = "save_dict_file_" + (new Date()).getTime();
+      ipcRenderer.on(callbackID, (event, content) => {
+        this.dictsBeforeSave = [].concat(this.dicts)
+        $('body').removeClass(className)
+
+        this.dicts = [{
+            term: '',
+            pinyin: ''
+        }].concat(this.dicts)
       
-      this.dicts = [{
-          term: '',
-          pinyin: ''
-      }].concat(this.dicts)
-    });
-    ipcRenderer.send('save_dict_file', this.dictToSave, callbackID );
+        resolve(true)
+      });
+      ipcRenderer.send('save_dict_file', this.dictToSave, callbackID );
+    })
+      
   }
 }

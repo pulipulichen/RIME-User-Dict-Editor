@@ -8,6 +8,8 @@ module.exports = {
       lastQueryString: '',
       queryIndex: -1,
       focusTimer: null,
+      addTimer: null,
+      pinyinHasMultipleOptions: false,
       toneNumber: {
         'ˊ': 2,
         'ˇ': 3,
@@ -75,6 +77,8 @@ module.exports = {
         })
       })
       this.queryIndex = i
+      this.pinyinHasMultipleOptions = false
+      $(this.$el).find(`.warning`).removeClass('warning')
       
       for (let i = 0; i < this.queryQueue.length; i++) {
         this.queryQueue[i].pinyin = await this.getPinyin(this.queryQueue[i].char)
@@ -84,12 +88,36 @@ module.exports = {
       let url = "https://www.moedict.tw/" + q
       return url
     },
-    focusPinyin (time = 300) {
+    focusPinyin (time = 3000) {
+      // 檢查拼音是否都查完了
+      //let hasLoaded = true
+      for (let i = 0; i < this.queryQueue.length; i++) {
+        if (this.queryQueue[i].pinyin === null) {
+          return false
+        }
+      }
+      
+      if ($(this.$el).find(`[data-dict-index="${this.queryIndex}"]`).val() !== '') {
+        return false
+      }
+      
       clearTimeout(this.focusTimer)
       this.focusTimer = setTimeout(() => {
+        this.$parent.dicts.splice(this.queryIndex, 0, {
+          term: "",
+          pinyin: ""
+        })
+        this.queryIndex++
+        
         this.setupPinyin()
+        
         $(this.$el).find(`[data-dict-index="${this.queryIndex}"]`).focus()
         $('body').removeClass('loading')
+        
+        if (this.pinyinHasMultipleOptions === true) {
+          $(this.$el).find(`[data-dict-index="${this.queryIndex}"]`).addClass('warning')
+        }
+        
         //console.log(this.queryIndex, `[data-dict-index="${this.queryIndex}"]`, $(this.$el).find(`[data-dict-index="${this.queryIndex}"]`).length)
       }, time)
     },
@@ -116,10 +144,15 @@ module.exports = {
           //console.log(json)
           
           // 給我拼音
+          if (json.heteronyms.length > 1) {
+            this.pinyinHasMultipleOptions = true
+          }
+          
           let pinyinConfig = json.heteronyms[0]
           let tone = pinyinConfig.bopomofo.slice(-1)
           let toneNumber = this.getToneNumber(tone)
-          let pinyinEnglish = slugify(pinyinConfig.pinyin)
+          
+          let pinyinEnglish = this.slugify(pinyinConfig.pinyin)
           
           //console.log(pinyinEnglish, toneNumber)
           //return pinyinEnglish + toneNumber
@@ -129,6 +162,11 @@ module.exports = {
           resolve(result)
         })
       })
+    },
+    slugify (pinyin) {
+      pinyin = pinyin.replace(/ǎ/g, 'a')
+      pinyin = slugify(pinyin)
+      return pinyin
     },
     getToneNumber (tone) {
       let toneNumber = this.toneNumber[tone]
@@ -155,6 +193,10 @@ module.exports = {
         //$('body').addClass('loading')
         //this.focusPinyin(1000)
       //}
+    },
+    save: async function () {
+      await this.$parent.save()
+      this.$refs.TypeTestInput.focus()
     }
   }
 }
