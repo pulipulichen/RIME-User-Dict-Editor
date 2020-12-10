@@ -88,10 +88,12 @@ var appMethods = {
         this.dictsBeforeSave = [].concat(this.dicts)
         $('body').removeClass(className)
 
-        this.dicts = [{
-            term: '',
-            pinyin: ''
-        }].concat(this.dicts)
+        if (this.dicts[0].term !== '' && this.dicts[0].pinyin !== '') {
+            this.dicts = [{
+                term: '',
+                pinyin: ''
+            }].concat(this.dicts)
+        }
       
         resolve(true)
       });
