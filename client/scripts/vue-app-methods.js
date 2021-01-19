@@ -85,7 +85,7 @@ var appMethods = {
       //console.log(this.dictToSave)
       let callbackID = "save_dict_file_" + (new Date()).getTime();
       ipcRenderer.on(callbackID, (event, content) => {
-        this.dictsBeforeSave = [].concat(this.dicts)
+        this.dictsBeforeSave = [].concat(this.dicts).filter(({term, pinyin}) => (term !== '' && pinyin !== ''))
         $('body').removeClass(className)
 
         if (this.dicts[0].term !== '' && this.dicts[0].pinyin !== '') {
