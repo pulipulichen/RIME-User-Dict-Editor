@@ -56,6 +56,7 @@ module.exports = {
       
       if (forceRemove || window.confirm(`確定刪除「${term}」？`)) {
         this.$parent.dicts.splice(i, 1)
+        $(this.$el).find(`.warning`).removeClass('warning')
       }
     },
     queryMoeDict: async function (term, i) {
@@ -196,6 +197,9 @@ module.exports = {
     },
     save: async function () {
       await this.$parent.save()
+      this.lastQueryString = ''
+      this.query = []
+      $(this.$el).find(`.warning`).removeClass('warning')
       this.$refs.TypeTestInput.focus()
     }
   }
