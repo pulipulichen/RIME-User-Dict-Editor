@@ -60,6 +60,10 @@ module.exports = {
       }
     },
     queryMoeDict: async function (term, i) {
+      if (this.$parent.dicts[i].pinyin !== '') {
+        return false
+      }
+      
       term = term.trim()
       if (term === '') {
         return false
