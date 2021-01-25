@@ -3,6 +3,7 @@
 const {
   app,
   BrowserWindow,
+  globalShortcut 
 } = require('electron')
 
 const path = require('path')
@@ -39,7 +40,7 @@ function createWindow() {
 
   win.removeMenu()
 
-  win.maximize()
+  //win.maximize()
 
   win.loadURL(url.format({
     pathname: path.join(__dirname, './client/index.html'),
@@ -57,6 +58,22 @@ function createWindow() {
     win = null
   })
 
+  globalShortcut.register('Ctrl+W', () => {
+    win.close()
+  })
+  
+  let escPressed = false
+  globalShortcut.register('ESC', () => {
+    if (escPressed === true) {
+      win.close()
+      return false
+    }
+    
+    escPressed = true
+    setTimeout(() => {
+      escPressed = false
+    }, 500)
+  })
 }
 
 var ipc_main = require('./server/electron-server.js');
