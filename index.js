@@ -59,11 +59,19 @@ function createWindow() {
   })
 
   globalShortcut.register('Ctrl+W', () => {
+    if (!win.isFocused()) {
+      return false
+    }
+    
     win.close()
   })
   
   let escPressed = false
   globalShortcut.register('ESC', () => {
+    if (!win.isFocused()) {
+      return false
+    }
+    
     if (escPressed === true) {
       win.close()
       return false
