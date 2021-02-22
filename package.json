@@ -48,6 +48,7 @@
   },
   "dependencies": {
     "jquery": "^3.5.1",
+    "open": "^7.4.2",
     "slugify": "^1.4.6"
   }
 }

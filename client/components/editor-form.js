@@ -158,6 +158,7 @@ module.exports = {
           let toneNumber = this.getToneNumber(tone)
           
           let pinyinEnglish = this.slugify(pinyinConfig.pinyin)
+          //console.log(pinyinConfig.pinyin, pinyinEnglish)
           
           //console.log(pinyinEnglish, toneNumber)
           //return pinyinEnglish + toneNumber
@@ -169,8 +170,19 @@ module.exports = {
       })
     },
     slugify (pinyin) {
+      let original = pinyin
+      
       pinyin = pinyin.replace(/ǎ/g, 'a')
+      pinyin = pinyin.replace(/ǐ/g, 'i')
+      pinyin = pinyin.replace(/ǔ/g, 'u')
+      
       pinyin = slugify(pinyin)
+      
+      console.log('[DEBUG]', original, pinyin)
+      if (pinyin.length === 1 && original.length !== pinyin.length) {
+        window.alert(`[WARNING] ${original} -> ${pinyin}`)
+      }
+      
       return pinyin
     },
     getToneNumber (tone) {
@@ -205,6 +217,6 @@ module.exports = {
       this.query = []
       $(this.$el).find(`.warning`).removeClass('warning')
       this.$refs.TypeTestInput.focus()
-    }
+    },
   }
 }

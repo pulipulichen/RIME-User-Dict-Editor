@@ -5,22 +5,30 @@
       <div class="ui segment">
 
         <div class="ui grid">
-          <div class="twelve wide column">
+          <div class="ten wide column">
             <h1 class="ui horizontal divider header">
               小狼毫字典
             </h1>
           </div>
-          <div class="two wide column" style="padding-top: 0.5rem;">
+          <div class="four wide column" style="padding-top: 0.5rem;">
+            <div class="inline fields" style="text-align: center">
             <div class="field">
               <button type="button"  
-                      class="fluid ui large icon button download-file" 
+                      class="fluid ui large icon button download-file header-button" 
                       id="save_button"
                       v-bind:class="{'positive': $parent.isModified, 'disabled': !$parent.isModified}"
                       v-on:click="save">
                 儲存
               </button>
             </div>
-            
+            <div class="field">
+              <button type="button"  
+                      class="fluid ui large icon button header-button"
+                      v-on:click="$parent.openDictFile">
+                原始檔
+              </button>
+            </div>
+          </div>
           </div>
           <div class="two wide column" style="padding-top: 0.5rem;">
             <input type="text" placeholder="測試..."

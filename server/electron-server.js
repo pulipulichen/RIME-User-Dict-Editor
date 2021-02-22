@@ -5,6 +5,7 @@ let fs = require('fs');
 var path = require('path');
 let config = require('../config.js')
 const { exec } = require("child_process");
+const open = require('open');
 
 module.exports = {
   setup: function () {
@@ -46,6 +47,11 @@ module.exports = {
         //console.log(`stdout: ${stdout}`);
         event.sender.send(_callback_id);
       });
+    });
+    
+    ipcMain.on('open_dict_file', (event, _content, _callback_id) => {
+      let _file = config.dictPath
+      open(_file)
     });
   }
 };

@@ -64,6 +64,10 @@ var appMethods = {
         if (yin === '') {
           return false
         }
+        if (yin.length < 3) {
+          console.error('[PINYIN ERROR]', parts.join(' '))
+        }
+        
         pinyin.push(yin)
       })
       pinyin = pinyin.join(' ')
@@ -100,5 +104,8 @@ var appMethods = {
       ipcRenderer.send('save_dict_file', this.dictToSave, callbackID );
     })
       
+  },
+  openDictFile () {
+    ipcRenderer.send('open_dict_file');
   }
 }
