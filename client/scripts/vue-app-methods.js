@@ -35,6 +35,15 @@ var appMethods = {
     });
     ipcRenderer.send('load_dict_file', callbackID);
   },
+  isEndsWithNumber (yin) {
+    let lastChar = yin.slice(yin.length - 1)
+    if (isNaN(lastChar)) {
+      return false
+    }
+    
+    lastChar = Number(lastChar)
+    return (lastChar >=1 && lastChar <= 5)
+  },
   parseDictRaw (content) {
     let dictRaw = content
     
@@ -64,8 +73,14 @@ var appMethods = {
         if (yin === '') {
           return false
         }
-        if (yin.length < 3) {
-          console.error('[PINYIN ERROR]', parts.join(' '))
+        
+        if (parts.join(' ') === '') {
+          return false
+        }
+        
+        if (yin.length < 2
+                || !this.isEndsWithNumber(yin)) {
+          window.alert('[PINYIN ERROR] ' + parts.join(' '))
         }
         
         pinyin.push(yin)
