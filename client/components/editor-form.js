@@ -15,6 +15,9 @@ module.exports = {
         'ˇ': 3,
         'ˋ': 4,
         '˙': 5
+      },
+      preferPinyin: {
+        '頁': 'ye4'
       }
     }
   },
@@ -131,7 +134,12 @@ module.exports = {
         return this.cache[char]
       }
       
+      if (this.preferPinyin[char]) {
+        return this.preferPinyin[char]
+      }
+      
       return new Promise((resolve) => {
+        
         let url = "https://www.moedict.tw/" + char
         $.get(url, html => {
           //console.log(url)
@@ -160,7 +168,7 @@ module.exports = {
           let pinyinEnglish = this.slugify(pinyinConfig.pinyin)
           //console.log(pinyinConfig.pinyin, pinyinEnglish)
           
-          //console.log(pinyinEnglish, toneNumber)
+          console.log(pinyinEnglish, toneNumber)
           //return pinyinEnglish + toneNumber
           let result = pinyinEnglish + toneNumber
           
@@ -172,6 +180,10 @@ module.exports = {
     slugify (pinyin) {
       let original = pinyin
       
+      if (pinyin.lastIndexOf('）​') > -1) {
+        pinyin = pinyin.slice(pinyin.lastIndexOf('）​') + 1)
+      }
+      
       pinyin = pinyin.replace(/ǎ/g, 'a')
       pinyin = pinyin.replace(/ǐ/g, 'i')
       pinyin = pinyin.replace(/ǔ/g, 'u')
@@ -181,6 +193,10 @@ module.exports = {
       console.log('[DEBUG]', original, pinyin)
       if (pinyin.length === 1 && original.length !== pinyin.length) {
         window.alert(`[WARNING] ${original} -> ${pinyin}`)
+      }
+      
+      if (pinyin.length > 10) {
+        window.alert('Pinyin is too large: ' + original)
       }
       
       return pinyin
