@@ -1,4 +1,4 @@
-/* global __dirname */
+/* global __dirname, process */
 
 const {
   app,
@@ -27,12 +27,19 @@ app.on('activate', () => {
 })
 
 function createWindow() {
+  let isWin = (process.platform === "win32")
+  
+  let ext = 'ico'
+  if (!isWin) {
+    ext = 'jpg'
+  }
+  
   // Create the browser window.
   win = new BrowserWindow({
     //width: 400,
     //height: 400,
     //maximizable: false,
-    icon: path.join(__dirname, './client/img/icon/favicon.ico'),
+    icon: path.join(__dirname, './client/img/icon/favicon.' + ext),
     webPreferences: {
       nodeIntegration: true
     }
@@ -40,7 +47,7 @@ function createWindow() {
 
   win.removeMenu()
 
-  //win.maximize()
+  win.maximize()
 
   win.loadURL(url.format({
     pathname: path.join(__dirname, './client/index.html'),

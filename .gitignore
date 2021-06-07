@@ -2,3 +2,5 @@
 /node_modules/
 /[[]document/
 /config.js
+package-lock.json
+*.desktop

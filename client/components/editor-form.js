@@ -187,6 +187,8 @@ module.exports = {
       pinyin = pinyin.replace(/ǎ/g, 'a')
       pinyin = pinyin.replace(/ǐ/g, 'i')
       pinyin = pinyin.replace(/ǔ/g, 'u')
+      pinyin = pinyin.replace(/ǜ/g, 'u')
+      pinyin = pinyin.replace(/ǒ/g, 'o')
       
       pinyin = slugify(pinyin)
       

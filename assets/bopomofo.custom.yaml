@@ -1,0 +1,5 @@
+# Use a custom dictionary.
+
+patch:
+  translator/dictionary: terra_pinyin.mine
+
