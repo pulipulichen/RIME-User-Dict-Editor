@@ -11,6 +11,10 @@ module.exports = {
   setup: function () {
     ipcMain.on('load_dict_file', (event, _callback_id) => {
       let _file = config.dictPath
+      if (config.backupDictPath) {
+        _file = config.backupDictPath
+      }
+      
       //var _file_name = __dirname + "/cache/local_storage_" + _key + ".json";
       fs.exists(_file, function (_is_exists) {
         if (_is_exists === true) {
