@@ -17,7 +17,8 @@ module.exports = {
         '˙': 5
       },
       preferPinyin: {
-        '頁': 'ye4'
+        '頁': 'ye4',
+        '著': 'zhe5'
       }
     }
   },
