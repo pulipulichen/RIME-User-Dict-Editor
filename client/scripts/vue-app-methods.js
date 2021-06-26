@@ -24,7 +24,11 @@ var appMethods = {
   },
   load () {
     let callbackID = "load_dict_file_" + (new Date()).getTime();
+    let loaded = false
     ipcRenderer.on(callbackID, (event, content) => {
+      if (loaded === true) {
+        return false
+      }
       //this.dictRaw = content
       this.dicts = this.parseDictRaw(content)
       //this.dicts = [{term: '', pinyin: ''}].concat(this.parseDictRaw(content))
@@ -32,6 +36,8 @@ var appMethods = {
       this.dicts = [{term: '', pinyin: ''}].concat(this.dicts)
       
       $('body').removeClass('loading')
+      this.setupTermFromClipboard()
+      loaded = true
     });
     ipcRenderer.send('load_dict_file', callbackID);
   },
@@ -122,5 +128,29 @@ var appMethods = {
   },
   openDictFile () {
     ipcRenderer.send('open_dict_file');
+  },
+  setupTermFromClipboard () {
+    
+    let callbackID = "setupTermFromClipboard" + (new Date()).getTime();
+    let loaded = false
+    ipcRenderer.on(callbackID, (event, content) => {
+      if (loaded === true) {
+        return false
+      }
+      
+      // -------------
+      
+      if (content.length > 7) {
+        // 太長了我不要
+        return false
+      }
+      
+      this.dicts[0].term = content
+      this.$refs.EditorForm.queryMoeDict(content, 0)
+      
+      // ------------
+      loaded = true
+    });
+    ipcRenderer.send('get_text_from_clipboard', callbackID);
   }
 }
