@@ -133,6 +133,20 @@ var appMethods = {
     
     let callbackID = "setupTermFromClipboard" + (new Date()).getTime();
     let loaded = false
+    
+    let addToFirst = (content) => {
+      if (this.dicts.length === 0) {
+        return setTimeout(() => {
+          addToFirst(content)
+        }, 3000)
+      }
+      
+      this.dicts[0].term = content
+      setTimeout(() => {
+        this.$refs.EditorForm.queryMoeDict(content, 0)
+      }, 1000)
+    }
+    
     ipcRenderer.on(callbackID, (event, content) => {
       if (loaded === true) {
         return false
@@ -145,8 +159,7 @@ var appMethods = {
         return false
       }
       
-      this.dicts[0].term = content
-      this.$refs.EditorForm.queryMoeDict(content, 0)
+      addToFirst(content)
       
       // ------------
       loaded = true
