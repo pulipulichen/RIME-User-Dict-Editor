@@ -1,0 +1,2 @@
+pkill fcitx
+fcitx-autostart &

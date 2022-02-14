@@ -11,8 +11,15 @@ module.exports = {
   setup: function () {
     ipcMain.on('load_dict_file', (event, _callback_id) => {
       let _file = config.dictPath
-      if (config.backupDictPath) {
+      if (config.backupDictPath && fs.existsSync(config.backupDictPath)) {
         _file = config.backupDictPath
+        
+        // 比較一下現在和備份的檔案大小，如果某個檔案比較大，那就拿到另一邊去
+        if (!fs.existsSync(config.dictPath)
+                || fs.statSync(config.backupDictPath).size > fs.statSync(config.dictPath).size) {
+          fs.copyFileSync(config.backupDictPath, config.dictPath)
+          execDeploy()
+        }
       }
       
       //var _file_name = __dirname + "/cache/local_storage_" + _key + ".json";
@@ -38,7 +45,13 @@ module.exports = {
         fs.writeFileSync(config.backupDictPath, _content, 'UTF8');
       }
       
+      execDeploy(event, _callback_id)
+    });
+    
+    function execDeploy (event, _callback_id) {
+      
       // 這邊還要執行命令
+      
       exec(config.deployCommand, (error, stdout, stderr) => {
         if (error) {
           console.log(`error: ${error.message}`);
@@ -49,9 +62,17 @@ module.exports = {
           return;
         }
         //console.log(`stdout: ${stdout}`);
-        event.sender.send(_callback_id);
+        if (config.deployWait === true && event) {
+          event.sender.send(_callback_id);
+        }
       });
-    });
+      
+      if (config.deployWait === false && event) {
+        setTimeout(() => {
+          event.sender.send(_callback_id)
+        }, 3000)
+      }
+    }
     
     ipcMain.on('open_dict_file', (event, _content, _callback_id) => {
       let _file = config.dictPath

@@ -57,7 +57,7 @@ var appComputed = {
 ---
 name: terra_pinyin.mine
 version: "2014.08.04"
-sort: by_weight變
+sort: by_weight
 # 萌典查拼音：https://www.moedict.tw/
 # 發問區：http://code.google.com/p/rimeime/wiki/Downloads
 # 導入預設詞彙

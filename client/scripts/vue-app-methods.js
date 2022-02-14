@@ -53,7 +53,7 @@ var appMethods = {
   parseDictRaw (content) {
     let dictRaw = content
     
-    if (dictRaw === '') {
+    if (!dictRaw || dictRaw === '') {
       return []
     }
     
