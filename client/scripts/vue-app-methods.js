@@ -26,10 +26,13 @@ var appMethods = {
     let callbackID = "load_dict_file_" + (new Date()).getTime();
     let loaded = false
     ipcRenderer.on(callbackID, (event, content) => {
-      if (loaded === true) {
+      //console.log(content)
+      //console.log(loaded)
+      if (loaded === true || content === null) {
         return false
       }
       //this.dictRaw = content
+      //console.log(content)
       this.dicts = this.parseDictRaw(content)
       //this.dicts = [{term: '', pinyin: ''}].concat(this.parseDictRaw(content))
       this.dictsBeforeSave = [].concat(this.dicts)
@@ -52,11 +55,11 @@ var appMethods = {
   },
   parseDictRaw (content) {
     let dictRaw = content
-    
+    //console.log(content)
     if (!dictRaw || dictRaw === '') {
       return []
     }
-    
+    //console.log(dictRaw)
     let splitor = '####'
     let splitorPos = dictRaw.indexOf(splitor)
     splitorPos = dictRaw.indexOf('\n', splitorPos) + 1  // 的下一行才是開始
@@ -154,7 +157,10 @@ var appMethods = {
       
       // -------------
       
-      if (content.length > 7) {
+      // 移除英文和數字與特殊符號
+      content = content.replace(/[0-9a-zA-Z ]/g, "")
+      
+      if (content.length > 7 || content === '') {
         // 太長了我不要
         return false
       }

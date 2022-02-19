@@ -22,6 +22,8 @@ module.exports = {
         }
       }
       
+      //console.log(_file, fs.existsSync(_file))
+      
       //var _file_name = __dirname + "/cache/local_storage_" + _key + ".json";
       fs.exists(_file, function (_is_exists) {
         if (_is_exists === true) {
@@ -29,6 +31,7 @@ module.exports = {
             //_content = new Buffer(_content, 'binary').toString('base64');
             //_content = new Buffer(_content, 'binary').toString('base64');
             //_content = _content.toString('base64');
+            //console.log(_content)
             event.sender.send(_callback_id, _content);
           });
         } else {
