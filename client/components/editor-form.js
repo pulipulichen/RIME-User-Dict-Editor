@@ -170,7 +170,7 @@ module.exports = {
           let pinyinEnglish = this.slugify(pinyinConfig.pinyin)
           //console.log(pinyinConfig.pinyin, pinyinEnglish)
           
-          console.log(pinyinEnglish, toneNumber)
+          //console.log(pinyinEnglish, toneNumber)
           //return pinyinEnglish + toneNumber
           let result = pinyinEnglish + toneNumber
           
@@ -237,6 +237,12 @@ module.exports = {
       this.query = []
       $(this.$el).find(`.warning`).removeClass('warning')
       this.$refs.TypeTestInput.focus()
+    },
+    saveAndClose: async function () {
+      await this.save()
+      setTimeout(() => {
+        window.close()
+      }, 5000)
     },
   }
 }

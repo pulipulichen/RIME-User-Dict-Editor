@@ -23,6 +23,15 @@
             </div>
             <div class="field">
               <button type="button"  
+                      class="fluid ui large icon button download-file header-button" 
+                      id="save_button"
+                      v-bind:class="{'positive': $parent.isModified, 'disabled': !$parent.isModified}"
+                      v-on:click="saveAndClose">
+                儲存並關閉
+              </button>
+            </div>
+            <div class="field">
+              <button type="button"  
                       class="fluid ui large icon button header-button"
                       v-on:click="$parent.openDictFile">
                 原始檔

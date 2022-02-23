@@ -158,7 +158,9 @@ var appMethods = {
       // -------------
       
       // 移除英文和數字與特殊符號
-      content = content.replace(/[0-9a-zA-Z ]/g, "")
+      //content = content.replace(/[0-9a-zA-Z ]/g, "")
+      // str.replace(/[^\x00-\x7F]/g, "")
+      content = content.replace(/[!^\x00-\x7F]/g, "")
       
       if (content.length > 7 || content === '') {
         // 太長了我不要

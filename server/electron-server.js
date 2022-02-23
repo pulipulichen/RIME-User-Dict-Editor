@@ -15,8 +15,17 @@ module.exports = {
         _file = config.backupDictPath
         
         // 比較一下現在和備份的檔案大小，如果某個檔案比較大，那就拿到另一邊去
-        if (!fs.existsSync(config.dictPath)
-                || fs.statSync(config.backupDictPath).size > fs.statSync(config.dictPath).size) {
+        if (fs.existsSync(config.dictPath)) {
+          if (fs.statSync(config.backupDictPath).size > fs.statSync(config.dictPath).size) {
+            fs.copyFileSync(config.backupDictPath, config.dictPath)
+            execDeploy()
+          }
+          else {
+            // 本地端比較大
+            _file = config.dictPath
+          }
+        }
+        else {
           fs.copyFileSync(config.backupDictPath, config.dictPath)
           execDeploy()
         }
@@ -44,7 +53,8 @@ module.exports = {
       let _file = config.dictPath
       fs.writeFileSync(_file, _content, 'UTF8');
       
-      if (config.backupDictPath) {
+      if (config.backupDictPath 
+              && fs.existsSync(config.backupDictPath)) {
         fs.writeFileSync(config.backupDictPath, _content, 'UTF8');
       }
       
