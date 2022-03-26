@@ -83,7 +83,7 @@ module.exports = {
       if (config.deployWait === false && event) {
         setTimeout(() => {
           event.sender.send(_callback_id)
-        }, 3000)
+        }, 6000)
       }
     }
     

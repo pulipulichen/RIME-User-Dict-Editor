@@ -8,10 +8,10 @@
     "url": "git+https://pulipuli.chen@gmail.com@github.com/pulipulichen/RIME-User-Dict-Editor.git"
   },
   "scripts": {
-    "build": "cross-env NODE_ENV=production webpack --watch",
-    "dev": "webpack-dev-server --content-base public --hot --inline",
-    "start-electron": "electron . --no-sandbox --force-device-scale-factor=1",
-    "build-linux-desktop": "nodejs bin/build-linux-desktop.js"
+    "x.build": "cross-env NODE_ENV=production webpack --watch",
+    "x.dev": "webpack-dev-server --content-base public --hot --inline",
+    "0.start-electron": "electron . --no-sandbox --force-device-scale-factor=1",
+    "x.build-linux-desktop": "nodejs bin/build-linux-desktop.js"
   },
   "keywords": [
     "RIME"
@@ -34,9 +34,6 @@
     "optimize-css-assets-webpack-plugin": "6.0.0",
     "serve": "11.3.2",
     "style-loader": "0.23.1",
-    "svelte": "3.0.0",
-    "svelte-i18n": "1.1.2-beta",
-    "svelte-loader": "2.13.3",
     "uglifyjs-webpack-plugin": "2.2.0",
     "vue-hot-loader": "0.0.4",
     "vue-hot-reload-api": "2.3.4",
