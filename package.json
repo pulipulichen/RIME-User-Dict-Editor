@@ -10,7 +10,7 @@
   "scripts": {
     "x.build": "cross-env NODE_ENV=production webpack --watch",
     "x.dev": "webpack-dev-server --content-base public --hot --inline",
-    "0.start-electron": "electron . --no-sandbox --force-device-scale-factor=1",
+    "0.start-electron": "electron . ",
     "x.build-linux-desktop": "nodejs bin/build-linux-desktop.js"
   },
   "keywords": [

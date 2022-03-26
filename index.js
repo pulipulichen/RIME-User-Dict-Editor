@@ -40,8 +40,13 @@ function createWindow() {
     //height: 400,
     //maximizable: false,
     icon: path.join(__dirname, './client/img/icon/favicon.' + ext),
+    //webPreferences: {
+    //  nodeIntegration: true
+    //}
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: true,
+      contextIsolation: false,
+      enableRemoteModule: true,
     }
   })
 
