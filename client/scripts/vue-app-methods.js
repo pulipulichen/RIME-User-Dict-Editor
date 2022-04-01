@@ -144,6 +144,15 @@ var appMethods = {
         }, 3000)
       }
       
+      // 20220402-0140 Pulipuli Chen
+      // 確認看看這是不是已經加入過的單字
+      for (let i = 0; i < this.dicts.length; i++) {
+
+        if (this.dicts[i].term === content) {
+          return false
+        }
+      }
+
       this.dicts[0].term = content
       setTimeout(() => {
         this.$refs.EditorForm.queryMoeDict(content, 0)
