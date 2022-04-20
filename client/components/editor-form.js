@@ -163,19 +163,35 @@ module.exports = {
             this.pinyinHasMultipleOptions = true
           }
           
-          let pinyinConfig = json.heteronyms[0]
-          let tone = pinyinConfig.bopomofo.slice(-1)
-          let toneNumber = this.getToneNumber(tone)
+          let pinyinConfig
+          for (let i = 0; i < json.heteronyms.length; i++) {
+            if (json.heteronyms[i].bopomofo) {
+              pinyinConfig = json.heteronyms[i]
+              break
+            }
+          }
           
-          let pinyinEnglish = this.slugify(pinyinConfig.pinyin)
-          //console.log(pinyinConfig.pinyin, pinyinEnglish)
-          
-          //console.log(pinyinEnglish, toneNumber)
-          //return pinyinEnglish + toneNumber
-          let result = pinyinEnglish + toneNumber
-          
-          this.cache[char] = result
-          resolve(result)
+          let result = 'ERROR'
+          if (typeof(pinyinConfig.bopomofo) !== 'string'
+            || pinyinConfig.bopomofo === 0) {
+            
+            this.cache[char] = result
+            resolve(result)
+          } 
+          else {
+            let tone = pinyinConfig.bopomofo.slice(-1)
+            let toneNumber = this.getToneNumber(tone)
+            
+            let pinyinEnglish = this.slugify(pinyinConfig.pinyin)
+            //console.log(pinyinConfig.pinyin, pinyinEnglish)
+            
+            //console.log(pinyinEnglish, toneNumber)
+            //return pinyinEnglish + toneNumber
+            result = pinyinEnglish + toneNumber
+            
+            this.cache[char] = result
+            resolve(result)
+          }
         })
       })
     },
