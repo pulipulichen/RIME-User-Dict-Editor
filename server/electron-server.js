@@ -63,6 +63,10 @@ module.exports = {
     
     function execDeploy (event, _callback_id) {
       
+      if (!config.deployCommand) {
+        return false
+      }
+
       // 這邊還要執行命令
       
       exec(config.deployCommand, (error, stdout, stderr) => {
