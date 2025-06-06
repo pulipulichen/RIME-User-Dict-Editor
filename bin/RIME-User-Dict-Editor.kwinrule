@@ -1,0 +1,6 @@
+[RIME-User-Dict-Editor]
+Description=RIME-User-Dict-Editor
+ignoregeometry=true
+ignoregeometryrule=3
+wmclass=rime-user-dict-editor
+wmclassmatch=1

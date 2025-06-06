@@ -6,7 +6,7 @@ module.exports = {
   backupDictPath: null,
   // /Apps/RIME/terra_pinyin.mine.dict.yaml
   
-  deployCommand: 'pkill fcitx; fcitx5 &',
+  deployCommand: 'fcitx5 -r &',
   //deployCommand: "kill `ps -A | grep fcitx5 | awk '{print $1}'` && fcitx5 &",
   // For Windows: deployCommand: '"C:\\Program Files (x86)\\Rime\\weasel-0.14.3\\WeaselDeployer.exe" /deploy',
   // For Ubuntu 21.10: deployCommand: "kill `ps -A | grep fcitx5 | awk '{print $1}'` && fcitx5 &",
