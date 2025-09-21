@@ -1,5 +1,5 @@
 module.exports = {
-  dictPath: '/home/pudding/.local/share/fcitx5/rime/build/terra_pinyin.mine.dict.yaml',
+  dictPath: '/home/pudding/.local/share/fcitx5/rime/terra_pinyin.mine.dict.yaml',
   // For Windows: dictPath: 'C:\\Users\\USER\\AppData\\Roaming\\Rime\\terra_pinyin.mine.dict.yaml',
   // For Ubuntu 21.10: '/home/[USER]/.local/share/fcitx5/rime/build/terra_pinyin.mine.dict.yaml',
   
