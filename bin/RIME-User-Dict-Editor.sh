@@ -1,10 +1,18 @@
 #!/bin/bash
 
+cd $(dirname "$0")
+
 # 設定 NVM 路徑
 export NVM_DIR="/home/pudding/.nvm"
 export PATH="$NVM_DIR/versions/node/v22.16.0/bin:$PATH"
 
-cd `realpath $(dirname "$0")`
+# cd `realpath $(dirname "$0")`
+
+# ===========================
+
+./fix-no-snadbox.sh
+
+# ===========================
 
 cd ..
 if [ ! -f "config.js" ]; then
@@ -24,5 +32,10 @@ if [ ! -d "node_modules" ]; then
     echo "node_modules directory not found, installing npm packages..."
     "${NPM_BIN}" install # 使用 NPM_BIN 變數來執行 npm install
 fi
+
+# ===========================
+
+pwd
+echo $NPM_BIN
 
 "${NPM_BIN}" run 0.start-electron >> /tmp/RIME-User-Dict-Editor.log 2>&1 # 將 npm run 的輸出導向日誌文件，並使用 NPM_BIN 變數
