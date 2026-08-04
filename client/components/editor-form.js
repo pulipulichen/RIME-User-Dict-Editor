@@ -207,11 +207,24 @@ module.exports = {
       }
       
       pinyin = pinyin.replace(/ǎ/g, 'a')
+      pinyin = pinyin.replace(/ǒ/g, 'o')
       pinyin = pinyin.replace(/ǐ/g, 'i')
       pinyin = pinyin.replace(/ǔ/g, 'u')
+      pinyin = pinyin.replace(/ǖ/g, 'u')
+      pinyin = pinyin.replace(/ǘ/g, 'u')
       pinyin = pinyin.replace(/ǚ/g, 'u')
       pinyin = pinyin.replace(/ǜ/g, 'u')
-      pinyin = pinyin.replace(/ǒ/g, 'o')
+      pinyin = pinyin.replace(/ǹ/g, 'n')
+      pinyin = pinyin.replace(/ḿ/g, 'm')
+
+      pinyin = pinyin
+      .replace(/[āáǎà]/g, 'a')
+      .replace(/[ēéěè]/g, 'e')
+      .replace(/[īíǐì]/g, 'i')
+      .replace(/[ōóǒò]/g, 'o')
+      .replace(/[ūúǔùǖǘǚǜü]/g, 'u')
+      .replace(/[ńňǹ]/g, 'n')
+      .replace(/[ḿ]/g, 'm')
       
       pinyin = slugify(pinyin)
       

@@ -9,7 +9,7 @@
 ### Fixed
 
 - Switch Moedict lookup to the `/uni/` JSON API so automatic pinyin lookup works again after the previous HTML scrape broke.
-- Strip the `ǚ` tone mark when normalizing pinyin to ASCII for RIME entries.
+- Strip tone marks that `slugify` drops (`ǎǒǐǔǖǘǚǜǹḿ`) when normalizing pinyin to ASCII for RIME entries.
 
 ### Changed
 
