@@ -73,8 +73,7 @@ import_tables:
     let dicts = []
     let tempDicts = [].concat(this.dicts)
     tempDicts.reverse().forEach(({term, pinyin}) => {
-      if (term.trim() === '' 
-              || pinyin.trim() === '') {
+      if (term.trim() === '' || pinyin.trim() === '') {
         return false
       }
       

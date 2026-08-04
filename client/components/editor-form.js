@@ -142,21 +142,26 @@ module.exports = {
       
       return new Promise((resolve) => {
         
-        let url = "https://www.moedict.tw/" + char
+        // let url = "https://www.moedict.tw/" + char
+        let url = "https://moedict.tw/uni/" + char
         $.get(url, html => {
           //console.log(url)
           //console.log(html)
           
           // 只取頭尾
-          let header = 'window.PRERENDER_JSON '
-          let footer = 'React.View.result'
+          // let header = 'window.PRERENDER_JSON '
+          // let footer = 'React.View.result'
           
-          let jsonText = html.slice(html.lastIndexOf(header), html.lastIndexOf(footer))
-          jsonText = jsonText.slice(jsonText.indexOf('{'), jsonText.lastIndexOf('}') + 1)
+          // let jsonText = html.slice(html.lastIndexOf(header), html.lastIndexOf(footer))
+          // jsonText = jsonText.slice(jsonText.indexOf('{'), jsonText.lastIndexOf('}') + 1)
           
-          //console.log(jsonText)
-          let json = JSON.parse(jsonText)
+          // //console.log(jsonText)
+          // let json = JSON.parse(jsonText)
           //console.log(json)
+
+
+          // 
+          let json = html
           
           // 給我拼音
           if (json.heteronyms.length > 1) {
@@ -172,8 +177,7 @@ module.exports = {
           }
           
           let result = 'ERROR'
-          if (typeof(pinyinConfig.bopomofo) !== 'string'
-            || pinyinConfig.bopomofo === 0) {
+          if (typeof(pinyinConfig.bopomofo) !== 'string' || pinyinConfig.bopomofo === 0) {
             
             this.cache[char] = result
             resolve(result)
@@ -205,6 +209,7 @@ module.exports = {
       pinyin = pinyin.replace(/ǎ/g, 'a')
       pinyin = pinyin.replace(/ǐ/g, 'i')
       pinyin = pinyin.replace(/ǔ/g, 'u')
+      pinyin = pinyin.replace(/ǚ/g, 'u')
       pinyin = pinyin.replace(/ǜ/g, 'u')
       pinyin = pinyin.replace(/ǒ/g, 'o')
       
